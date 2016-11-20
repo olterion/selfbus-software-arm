@@ -1,0 +1,16 @@
+21:50:55 **** Incremental Build of configuration Debug for project Taster_RGB_WS2803 ****
+make -r all 
+Building target: Taster_RGB_WS2803.axf
+Invoking: MCU C++ Linker
+arm-none-eabi-c++ -nostdlib -L"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\Debug" -L"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU1" -Xlinker -Map="Taster_RGB_WS2803.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "example-graphlcd_Debug.ld" -o "Taster_RGB_WS2803.axf"  ./src/app_main.o ./src/cr_cpp_config.o ./src/cr_startup_lpc11xx.o ./src/crp.o ./src/timer32.o   -lCMSIS_CORE_LPC11xx -lsblib
+Finished building target: Taster_RGB_WS2803.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "Taster_RGB_WS2803.axf"; # arm-none-eabi-objcopy -O binary "Taster_RGB_WS2803.axf" "Taster_RGB_WS2803.bin" ; checksum -p LPC1115_303 -d "Taster_RGB_WS2803.bin";
+   text	   data	    bss	    dec	    hex	filename
+  21264	      8	   1536	  22808	   5918	Taster_RGB_WS2803.axf
+ 
+
+21:50:56 Build Finished (took 1s.70ms)
+

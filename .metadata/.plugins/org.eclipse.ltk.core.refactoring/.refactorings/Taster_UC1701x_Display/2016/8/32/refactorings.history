@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Taster_UC1701x_Display/src/app_temperature.cpp&apos; to &apos;app_temp_control.cpp&apos;" description="Rename resource &apos;app_temperature.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/app_temperature.cpp" name="app_temp_control.cpp" stamp="1471192916104" updateReferences="true"/>
+</session>

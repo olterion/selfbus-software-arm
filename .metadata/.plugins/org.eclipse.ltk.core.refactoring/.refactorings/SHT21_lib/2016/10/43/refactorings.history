@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SHT21_lib/inc/SHT21.h&apos; to &apos;SHT2x.h&apos;" description="Rename resource &apos;SHT21.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="inc/SHT21.h" name="SHT2x.h" stamp="1477827975236" updateReferences="true"/>
+</session>

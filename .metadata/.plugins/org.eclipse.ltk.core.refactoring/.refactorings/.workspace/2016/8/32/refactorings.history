@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;MDT_KP_Luftqualitaetsensor_V10-bim112&apos;" deleteContents="true" description="Delete resource &apos;MDT_KP_Luftqualitaetsensor_V10-bim112&apos;" element1="/MDT_KP_Luftqualitaetsensor_V10-bim112" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1471189145618"/>
+</session>

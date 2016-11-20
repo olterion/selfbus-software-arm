@@ -1,0 +1,47 @@
+#include <u8g_arm.h>
+#include "lcd.h"
+#include <stdlib.h>
+
+uint8_t draw_state = 0;
+
+u8g_t u8g;
+
+struct lcd_screen lcd_screens[2];
+
+void init_screens(void) {
+	lcd_screens[HOMESCREEN].screen_objects = (lcd_object*)malloc(3 * sizeof(lcd_object));
+}
+
+
+void u8g_prepare(void) {
+  u8g_SetFont(&u8g, u8g_font_6x10);
+  u8g_SetFontRefHeightExtendedText(&u8g);
+  u8g_SetDefaultForegroundColor(&u8g);
+  u8g_SetFontPosTop(&u8g);
+}
+
+void u8g_box_frame(uint8_t a) {
+  u8g_DrawStr(&u8g, 0, 0, "drawBox");
+  u8g_DrawBox(&u8g, 5,10,20,10);
+  u8g_DrawBox(&u8g, 10+a,15,30,7);
+  u8g_DrawStr(&u8g, 0, 30, "drawFrame");
+  u8g_DrawFrame(&u8g, 5,10+30,20,10);
+  u8g_DrawFrame(&u8g, 10+a,15+30,30,7);
+}
+
+void u8g_string(uint8_t a) {
+  u8g_DrawStr(&u8g, 30+a,31, " 0");
+  u8g_DrawStr90(&u8g, 30,31+a, " 90");
+  u8g_DrawStr180(&u8g, 30-a,31, " 180");
+  u8g_DrawStr270(&u8g, 30,31-a, " 270");
+}
+
+void u8g_line(uint8_t a) {
+  u8g_DrawStr(&u8g, 0, 0, "drawLine");
+  u8g_DrawLine(&u8g, 7+a, 10, 40, 55);
+  u8g_DrawLine(&u8g, 7+a*2, 10, 60, 55);
+  u8g_DrawLine(&u8g, 7+a*3, 10, 80, 55);
+  u8g_DrawLine(&u8g, 7+a*4, 10, 100, 55);
+}
+
+

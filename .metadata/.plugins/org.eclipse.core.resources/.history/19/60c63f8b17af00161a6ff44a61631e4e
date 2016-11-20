@@ -1,0 +1,33 @@
+/*
+ *  Copyright (c) 2016 Oliver Stefan <MAIL>
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ */
+#ifndef TEMPERATURE_H
+#define TEMPERATURE_H
+
+enum SollTemp {
+	SollTempIntern,
+	SollTempExtern
+};
+
+struct temp_values{
+	unsigned int sendInterval;
+	unsigned int autoResetTime;
+	bool SollTempFlag;				//Entscheidung ob Solltemperatur von Bedienteil oder extern versendet werden soll
+	unsigned short TempSollIntern;
+	int hekaTempSollIntern;			//Solltemperatur, die am Bedienelement eingestellt wurde (Faktor 100)
+	unsigned short TempSollExtern;
+	int hekaTempSollExtern;			//Solltemperatur, die von extern übermittelt wurde (Faktor 100)
+	unsigned short tempIntern; 		//DPT9 format, Messwert vom internen Temperatursensor
+	int hekaTempIntern;
+	unsigned short tempExtern;		//DPT9 format, Messwert vom externen Temperatursensor
+	int hekaTempExtern;
+	bool external_set_temp_active; 	//true if actual set-temperature is from external
+};
+
+extern struct temp_values temp;
+
+#endif

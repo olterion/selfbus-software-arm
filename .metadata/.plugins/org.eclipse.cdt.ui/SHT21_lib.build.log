@@ -1,0 +1,21 @@
+16:54:18 **** Incremental Build of configuration Debug for project SHT21_lib ****
+make -r all 
+Building file: ../src/SHT2x.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_LPCOPEN -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\software-arm-olli\SHT21_lib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\software-arm-olli\CMSIS_CORE_LPC11xx\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -MMD -MP -MF"src/SHT2x.d" -MT"src/SHT2x.o" -MT"src/SHT2x.d" -o "src/SHT2x.o" "../src/SHT2x.cpp"
+Finished building: ../src/SHT2x.cpp
+ 
+Building target: libSHT21_lib.a
+Invoking: MCU Archiver
+arm-none-eabi-ar -r  "libSHT21_lib.a"  ./src/SHT2x.o   
+Finished building target: libSHT21_lib.a
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "libSHT21_lib.a" ; # arm-none-eabi-objdump -h -S "libSHT21_lib.a" >"libSHT21_lib.lss"
+   text	   data	    bss	    dec	    hex	filename
+    672	      0	      4	    676	    2a4	SHT2x.o (ex libSHT21_lib.a)
+ 
+
+16:54:20 Build Finished (took 2s.119ms)
+

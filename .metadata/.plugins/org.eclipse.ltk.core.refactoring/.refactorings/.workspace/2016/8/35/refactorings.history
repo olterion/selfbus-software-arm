@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Taster_6fach_RGB-bcu1&apos; to &apos;RGBswitch_6-bcu1&apos;" description="Rename resource &apos;Taster_6fach_RGB-bcu1&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/Taster_6fach_RGB-bcu1" name="RGBswitch_6-bcu1" stamp="1472502685151" updateReferences="true"/>
+</session>

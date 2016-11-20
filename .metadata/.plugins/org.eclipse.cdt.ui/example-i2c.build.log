@@ -1,0 +1,6 @@
+19:49:59 **** Incremental Build of configuration Debug for project example-i2c ****
+make -r all 
+make: Nothing to be done for `all'.
+
+19:50:00 Build Finished (took 389ms)
+

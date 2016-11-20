@@ -1,0 +1,80 @@
+#ifndef LCD_H_
+#define LCD_H_
+
+extern u8g_t u8g;
+
+extern uint8_t draw_state;
+
+
+
+void u8g_prepare(void);
+void u8g_box_frame(uint8_t a);
+void u8g_string(uint8_t a);
+void u8g_line(uint8_t a);
+void u8g_ascii_1(void);
+void u8g_ascii_2(void);
+void draw(void);
+void temperature_screen(void);
+void draw_thermometer(void);
+
+
+struct lcd_object {
+	bool object_active;
+	char *object_address;
+	uint8_t pos_x;
+	uint8_t pos_y;
+	uint8_t height;
+	uint8_t width;
+	uint8_t font_size;
+	u8g_fntpgm_uint8_t font;
+};
+
+struct lcd_screen {
+	lcd_object *screen_objects;
+	bool screen_active;
+};
+
+//struct lcd_screen lcd_screens[2];
+
+//uint8_t active_screen; // set the enumeration of shown screen
+
+enum {
+	HOMESCREEN,
+	MENU
+};
+
+
+
+struct lcd_home_screen {
+	bool show_window_state; //0=off, 1 = on
+	bool window_state;	//0=closed, 1=open
+	bool show_ventialtion_state; //0=off, 1 = on
+	uint8_t ventilation_level; //0=off ... 4=full flow
+	bool external_set_temp_active; //true if actual set-temperature is from external
+};
+
+
+
+
+#define luefter_width 15
+#define luefter_height 13
+static unsigned char luefter_bits[] U8G_PROGMEM = {
+   0x40, 0x00, 0xe0, 0x00, 0xe0, 0x01, 0xe0, 0x01, 0xe0, 0x01, 0xc0, 0x01,
+   0xc0, 0x00, 0x70, 0x00, 0xfc, 0x1f, 0x9e, 0x3f, 0x1f, 0x7f, 0x0f, 0x3e,
+   0x06, 0x00 };
+
+#define snowflake_width 14
+#define snowflake_height 15
+static unsigned char snowflake_bits[] = {
+   0x20, 0x01, 0xf0, 0x03, 0xe4, 0x09, 0xc6, 0x18, 0xcc, 0x0c, 0xdf, 0x3e,
+   0xff, 0x3f, 0xe0, 0x01, 0xf0, 0x03, 0xff, 0x3f, 0xce, 0x1c, 0xcc, 0x0c,
+   0xc4, 0x08, 0xe0, 0x01, 0x20, 0x01 };
+
+
+
+
+
+//struct lcd_page
+
+
+#endif

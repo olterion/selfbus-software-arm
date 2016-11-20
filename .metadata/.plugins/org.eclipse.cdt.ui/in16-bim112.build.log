@@ -1,0 +1,16 @@
+22:07:57 **** Incremental Build of configuration Debug for project in16-bim112 ****
+make -r all 
+Building target: in16-bim112.axf
+Invoking: MCU C++ Linker
+arm-none-eabi-c++ -nostdlib -L"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\CMSIS_CORE_LPC11xx\Debug" -L"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112" -Xlinker -Map="in16-bim112.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "in16-bim112_Debug.ld" -o "in16-bim112.axf"  ./src/leds/LedIndication.o  ./src/app_in.o ./src/app_main.o ./src/channel.o ./src/counter.o ./src/cr_startup_lpc11xx.o ./src/dimmer.o ./src/input.o ./src/jalo.o ./src/logic.o ./src/scene.o ./src/switch.o   -lCMSIS_CORE_LPC11xx -lsblib
+Finished building target: in16-bim112.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "in16-bim112.axf"; # arm-none-eabi-objcopy -O binary "in16-bim112.axf" "in16-bim112.bin" ; checksum -p LPC1115_303 -d "in16-bim112.bin";
+   text	   data	    bss	    dec	    hex	filename
+  28884	    112	   4488	  33484	   82cc	in16-bim112.axf
+ 
+
+22:07:58 Build Finished (took 844ms)
+

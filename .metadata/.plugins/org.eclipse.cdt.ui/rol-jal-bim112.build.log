@@ -1,0 +1,6 @@
+21:19:04 **** Incremental Build of configuration Debug_LPC11 for project rol-jal-bim112 ****
+make -r all 
+make: Nothing to be done for `all'.
+
+21:19:04 Build Finished (took 246ms)
+

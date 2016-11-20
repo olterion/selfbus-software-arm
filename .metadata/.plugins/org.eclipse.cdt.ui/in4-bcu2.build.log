@@ -1,0 +1,20 @@
+21:21:21 **** Incremental Build of configuration Debug for project in4-bcu2 ****
+make -r all 
+Building target: in4-bcu2.axf
+Invoking: MCU C++ Linker
+arm-none-eabi-c++ -nostdlib -L"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\CMSIS_CORE_LPC11xx\Debug" -L"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2" -Xlinker -Map="in4-bcu2.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "in4-bcu2_Debug.ld" -o "in4-bcu2.axf"  ./src/app_in4.o ./src/app_main.o ./src/cr_startup_lpc11xx.o ./src/crp.o   -lCMSIS_CORE_LPC11xx -lsblib
+./src/app_main.o: In function `setup()':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\sensors\binary-inputs\in4-bcu2\Debug/../src/app_main.cpp:50: undefined reference to `bcu'
+./src/app_main.o: In function `loop()':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\sensors\binary-inputs\in4-bcu2\Debug/../src/app_main.cpp:79: undefined reference to `bus'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2\libsblib.a(bcu_base.o): In function `TIMER16_1_IRQHandler':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2/../src/eib/bcu_base.cpp:26: undefined reference to `bus'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2\libsblib.a(bcu_base.o): In function `BcuBase::begin_BCU2(int, int, int)':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2/../src/eib/bcu_base.cpp:88: undefined reference to `bus'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2\libsblib.a(main.o): In function `main':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BCU2/../src/main.cpp:47: undefined reference to `bcu'
+collect2.exe: error: ld returned 1 exit status
+make: *** [in4-bcu2.axf] Error 1
+
+21:21:21 Build Finished (took 731ms)
+

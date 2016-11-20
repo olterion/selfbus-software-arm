@@ -1,0 +1,13 @@
+23:06:56 **** Incremental Build of configuration Debug for project Display_SHT21_m2tklib_test ****
+make -r all 
+Building file: ../src/lcd.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DBCU_TYPE=10 -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\Display_SHT21_m2tklib_test\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\CMSIS_CORE_LPC11xx\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\u8g_lib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\M2tklib\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/lcd.d" -MT"src/lcd.o" -MT"src/lcd.d" -o "src/lcd.o" "../src/lcd.cpp"
+../src/lcd.cpp:105:1: error: cannot convert 'm2_el_u8_fn_t* {aka _m2_el_u8_fn_struct*}' to 'm2_strlist_cb_fnptr {aka const char* (*)(unsigned char, unsigned char)}' in initialization
+ };
+ ^
+In file included from ../src/lcd.cpp:6:0:
+C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\neuneu_software-arm-olli\Display_SHT21_m2tklib_test\inc/lcd.h:60:22: warning: 'temperature_bits' defined but not used [-Wunused-variable]
+ static unsigned char temperature_bits[] U8G_PROGMEM = {
+                      ^
+make: *** [src/lcd.o] Error 1

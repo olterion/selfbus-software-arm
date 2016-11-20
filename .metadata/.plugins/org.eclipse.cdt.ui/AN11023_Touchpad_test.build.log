@@ -1,0 +1,26 @@
+21:25:26 **** Incremental Build of configuration Debug for project AN11023_Touchpad_test ****
+make -r all 
+Building file: ../src/main.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DBCU_TYPE=10 -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\AN11023_Touchpad_test\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/main.d" -MT"src/main.o" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+Finished building: ../src/main.cpp
+ 
+Building file: ../src/system_LPC11xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__NEWLIB__ -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\AN11023_Touchpad_test\inc" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/system_LPC11xx.d" -MT"src/system_LPC11xx.o" -MT"src/system_LPC11xx.d" -o "src/system_LPC11xx.o" "../src/system_LPC11xx.c"
+../src/system_LPC11xx.c: In function 'SystemInit':
+../src/system_LPC11xx.c:329:21: warning: unused variable 'i' [-Wunused-variable]
+   volatile uint32_t i;
+                     ^
+Finished building: ../src/system_LPC11xx.c
+ 
+Building target: AN11023_Touchpad_test.axf
+Invoking: MCU C++ Linker
+arm-none-eabi-c++ -nostdlib -L"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\Debug" -Xlinker -Map="AN11023_Touchpad_test.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "AN11023_Touchpad_test_Debug.ld" -o "AN11023_Touchpad_test.axf"  ./src/main.o ./src/system_LPC11xx.o   -lCMSIS_CORE_LPC11xx
+c:/nxp/lpcxpresso_7.9.2_493/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/bin/ld.exe: warning: cannot find entry symbol ResetISR; defaulting to 00000000
+AN11023_Touchpad_test_Debug.ld:139: undefined symbol `_vStackTop' referenced in expression
+collect2.exe: error: ld returned 1 exit status
+make: *** [AN11023_Touchpad_test.axf] Error 1
+
+21:25:28 Build Finished (took 1s.195ms)
+

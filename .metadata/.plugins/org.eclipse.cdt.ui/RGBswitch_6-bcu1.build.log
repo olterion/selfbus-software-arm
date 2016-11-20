@@ -1,0 +1,6 @@
+17:41:07 **** Incremental Build of configuration Debug for project RGBswitch_6-bcu1 ****
+make -r all 
+make: Nothing to be done for `all'.
+
+17:41:07 Build Finished (took 206ms)
+

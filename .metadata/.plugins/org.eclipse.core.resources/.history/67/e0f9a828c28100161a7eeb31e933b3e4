@@ -1,0 +1,416 @@
+/*
+ * TODO brightness implementation
+ */
+
+#include <sblib/core.h>
+#include <sblib/ioports.h>
+#include <sblib/spi.h>
+#include <sblib/serial.h>
+#include "leds.h"
+#include "params.h"
+
+//#define _DEBUG__
+
+SPI spi(SPI_PORT_0);
+LED led();
+
+int blinkPin = PIO0_7;
+
+
+
+#ifdef _DEBUG__
+Serial Serial(PIO2_7, PIO2_8);
+#endif
+
+extern "C" void TIMER32_0_IRQHandler() {
+
+	//LPC_TMR32B0->IR = 1;
+	timer32_0.resetFlags(); /* clear MAT0 interrupt flag */
+
+	/*
+	 * dimming of RGB Leds
+	 */
+	if (flag_dimmen == 1) {
+
+		uint8_t flag_val_changed = 0;
+		int16_t calc_res;
+
+		for (uint8_t i = 0; i < LEDS; i++) {
+			if (rgb_buffer_ist[i] != rgb_buffer_soll[i]) {
+				rgb_buffer_ist[i] = ((dimmrampen[i].steigung * dimm_steps_cnt) / 100) + dimmrampen[i].nullstelle;
+
+				flag_val_changed = 1;
+			}
+		}
+
+		// in case, that the linear equation not completely matches the goal
+		if (flag_val_changed == 0 || (dimm_steps_cnt == LED_DIMM_STEPS)) {
+			for (uint8_t i = 0; i < LEDS; i++) {
+				rgb_buffer_ist[i] = rgb_buffer_soll[i];
+			}
+			flag_dimmen = 0;
+			dimm_steps_cnt = 0;
+		}
+		dimm_steps_cnt++;
+	}
+	if (flag_led_on == 1) {
+		led_on_time += TIMER32_0_STEP;
+	}
+	if (led_on_time == MAX_LED_ON_TIME) {
+		flag_sens_neg = 1;
+		led_on_time = 0;
+	}
+	// send out LED parameter to WS2803
+	spi_send(rgb_buffer_ist);
+
+	/*
+	 * blink mode calculation
+	 */
+	if (any_blink_led_active) {
+
+		if (actual_period_time == time_period_blink) {
+			for (uint8_t i = 0; i < 6; i++) {
+				if (led_blink_state[i]) {
+					if (actual_blink_leds_on) {	// shut off all LEDs
+						rgb_buffer_ist[rgb_leds[i].blau] = 0;
+						rgb_buffer_ist[rgb_leds[i].rot] = 0;
+						rgb_buffer_ist[rgb_leds[i].gruen] = 0;
+					} else {	//set back the value to LEDs
+						rgb_buffer_ist[rgb_leds[i].blau] = rgb_buffer_vorgabe[rgb_leds[i].blau];
+						rgb_buffer_ist[rgb_leds[i].rot] = rgb_buffer_vorgabe[rgb_leds[i].rot];
+						rgb_buffer_ist[rgb_leds[i].gruen] = rgb_buffer_vorgabe[rgb_leds[i].gruen];
+					}
+				}
+			}
+			actual_blink_leds_on = !actual_blink_leds_on;
+			actual_period_time = 0;
+		}
+		actual_period_time += TIMER32_0_STEP;
+	}
+
+	/*
+	 * Annäherungssensor auslesen und auswerten
+	 * alle 100ms wird der ADC ausgelesen (5* -> Mittelwert)
+	 * jeweils 50ms versetzt wird die IR-LED ein- und ausgeschaltet
+	 */
+	if (timer32_0_cnt == SENSOR_TIMER_100MS / 2) { //alle 100ms die Sensorabfrage durchführen
+
+		value_without_LED = 0;
+
+		for (int i = 0; i < 5; i++) {
+			value_without_LED += analogRead(AD3);
+		}
+
+		digitalWrite(PIO3_2, 0); //IR LED ein
+
+		value_without_LED /= 5;
+	}
+	if (timer32_0_cnt == SENSOR_TIMER_100MS) {
+
+		timer32_0_cnt = 0; //100ms Sekungen Zähler rücksetzen
+
+		int wert_mit_LED = 0;
+		int differenz_temp = 0;
+
+		for (int i = 0; i < 5; i++) {
+			wert_mit_LED += analogRead(AD3);
+		}
+
+		digitalWrite(PIO3_2, 1); //IR LED aus
+
+		wert_mit_LED /= 5;
+
+		differenz_temp = wert_mit_LED - value_without_LED;
+
+		differenz_median = differenz_median * 4 + differenz_temp;
+
+		differenz_median /= 5;
+
+#ifdef _DEBUG__
+		serial.println(value_without_LED);
+		serial.println(wert_mit_LED);
+		serial.println(differenz_temp);
+		serial.println("");
+#endif
+
+		if (differenz_temp - differenz_median > 60) {
+			flag_sens_pos = 1;
+
+#ifdef _DEBUG__
+			serial.println("positive Flanke erkannt!");
+#endif
+		}
+	}
+
+	timer32_0_cnt++;
+
+	return;
+}
+
+void LED::set_nightlight_state(int state) {
+	if (state == 1 && nightlight_configured == 1) {
+		nightlight_active = 1;
+	}
+	if (state == 0) {
+		nightlight_active = 0;
+	}
+}
+
+void LED::set_blink_mode(int channel, int state) {
+
+	// setting the information for timer interrupt
+	led_blink_state[channel] = state;
+
+	// avoid staying LED on at switch off blink mode
+	if (state == 0) {
+		rgb_buffer_ist[rgb_leds[channel].blau] = rgb_buffer_soll[rgb_leds[channel].blau];
+		rgb_buffer_ist[rgb_leds[channel].rot] = rgb_buffer_soll[rgb_leds[channel].rot];
+		rgb_buffer_ist[rgb_leds[channel].gruen] = rgb_buffer_soll[rgb_leds[channel].gruen];
+	}
+
+	//set flag if any blinking led is active
+	any_blink_led_active = 0;
+	for (uint8_t i = 0; i < 6; i++) {
+		if (led_blink_state[i] == 1) {
+			any_blink_led_active = 1;
+		}
+	}
+}
+
+uint16_t LED::translate_value_to_time(uint8_t value) {
+
+	uint16_t ret_val = 0;
+
+	switch (value) {					//translate ETS setting to ms
+	case 0:
+		ret_val = 100;
+		break;
+	case 1:
+		ret_val = 250;
+		break;
+	case 2:
+		ret_val = 500;
+		break;
+	case 3:
+		ret_val = 750;
+		break;
+	case 4:
+		ret_val = 1000;
+		break;
+	case 5:
+		ret_val = 1500;
+		break;
+	case 6:
+		ret_val = 2000;
+		break;
+	case 7:
+		ret_val = 3000;
+		break;
+	case 8:
+		ret_val = 4000;
+		break;
+	case 9:
+		ret_val = 5000;
+		break;
+	case 10:
+		ret_val = 6000;
+		break;
+	case 11:
+		ret_val = 7000;
+		break;
+	case 12:
+		ret_val = 8000;
+		break;
+	case 13:
+		ret_val = 9000;
+		break;
+	case 14:
+		ret_val = 10000;
+		break;
+	}
+	return ret_val;
+}
+
+/*
+ * exponential correction of dimming values
+ * it's neccessary because human eyes have an exponential perception
+ * source: https://www.mikrocontroller.net/articles/Diskussion:LED-Fading#Diskussion_wissenschaftl.-technischer_Hintergrund
+ */
+inline uint8_t LED::expvalue7(const uint8_t linear) {
+	/* Returns the exponential value (approx. 1.0443^x).
+	 * argument: 7 bit unsigned (0..127)  return: 8 bit unsigned (1..255)
+	 */
+	// look up exponential
+	uint8_t exp = exptable4[linear % 16];
+	// scale magnitude
+	return exp >> (7 - linear / 16);
+}
+
+/*
+ * Initialize the application.
+ */
+void LED::initLEDs() {
+	uint8_t brightness_nightlight;
+	uint8_t brightness_nightlight_exp;
+	uint8_t brightness_leds;
+	uint8_t brightness_leds_exp;
+
+
+	pinMode(blinkPin, OUTPUT);
+
+	pinMode(PIO0_2, OUTPUT | SPI_SSEL);
+	pinMode(PIO0_9, OUTPUT | SPI_MOSI);
+	pinMode(PIO0_6, OUTPUT | SPI_CLOCK);
+
+	spi.setClockDivider(128);
+	spi.begin();
+
+	analogBegin();
+	pinMode(PIO1_2, INPUT_ANALOG);
+
+	pinMode(PIO3_2, OUTPUT); //IR LED
+	digitalWrite(PIO3_2, 0);
+
+	// Enable the serial port with 19200 baud, no parity, 1 stop bit
+#ifdef _DEBUG__
+	serial.begin(19200);
+	serial.println("WS2803 Taster TEST");
+#endif
+	for (int i = 0; i < LEDS; i++) {
+		rgb_buffer_ist[i] = 0;
+	}
+
+	// LED base + byte 2 bis 6 (bit 0-4) beinhalten die Farbvorgaben
+	function_leds_active = LEDparams[1] >> 7;
+
+	if (function_leds_active) {
+		uint8_t led_color_param;
+
+		brightness_leds = 127 * (LEDparams[1] & 0x7F) / 100; // calculate from range 0..100 to 0..127 for exponential correction
+		brightness_leds_exp = expvalue7(brightness_leds); // get the exponential correction
+
+		time_leds_on = translate_value_to_time(LEDparams[5] & 0x0F);
+		time_period_blink = translate_value_to_time(LEDparams[6] >> 4);
+
+		for (uint8_t i = 0; i < LEDS / 3; i++) {
+
+			if (i % 2 == 0) {  //gerade Zahlen
+				led_color_param = LEDparams[2 + ((i + 1) / 2)] & 0x0F;
+			} else {
+				led_color_param = LEDparams[2 + ((i + 1) / 2)] >> 4;
+			}
+
+			rgb_buffer_vorgabe[rgb_leds[i].blau]  = farbauswahl[led_color_param].blau  * brightness_leds_exp / 255;
+			rgb_buffer_vorgabe[rgb_leds[i].rot]   = farbauswahl[led_color_param].rot   * brightness_leds_exp / 255;
+			rgb_buffer_vorgabe[rgb_leds[i].gruen] = farbauswahl[led_color_param].gruen * brightness_leds_exp / 255;
+		}
+	}
+
+	nightlight_configured = LEDparams[0] >> 7;
+
+	if (nightlight_configured) {
+
+		brightness_nightlight = 127 * (LEDparams[0] & 0x7F) / 100; // calculate from range 0..100 to 0..127 for exponential correction
+		brightness_nightlight_exp = expvalue7(brightness_nightlight); // get the exponential correction
+
+		rgb_buffer_nachtlicht[rgb_leds[0].blau]  = farbauswahl[LEDparams[2] >> 4].blau  * brightness_nightlight_exp / 255;
+		rgb_buffer_nachtlicht[rgb_leds[0].rot]   = farbauswahl[LEDparams[2] >> 4].rot   * brightness_nightlight_exp / 255;
+		rgb_buffer_nachtlicht[rgb_leds[0].gruen] = farbauswahl[LEDparams[2] >> 4].gruen * brightness_nightlight_exp / 255;
+	}
+
+	// Enable the timer interrupt
+	enableInterrupt(TIMER_32_0_IRQn);
+
+	// Begin using the timer
+	timer32_0.begin();
+
+	// Let the timer count milliseconds
+	timer32_0.prescaler((SystemCoreClock / 1000) - 1);
+
+	// On match of MAT0, generate an interrupt and reset the timer
+	timer32_0.matchMode(MAT0, RESET | INTERRUPT);
+
+	// Match MAT0 when the timer reaches this value (in milliseconds)
+	timer32_0.match(MAT0, TIMER32_0_STEP); //10ms period
+
+	// set Timer priority lower than normal, because sblib interrupts have to be served with highest priority (prio = 0)
+	NVIC_SetPriority(TIMER_32_0_IRQn, 1);
+
+	timer32_0.start();
+
+}
+
+void LED::spi_send(uint8_t *value) {
+	for (int Out = 0; Out < LEDS; Out++) {
+		spi.transfer(value[Out]);
+	}
+	delayMicroseconds(600);
+}
+
+void LED::calculate_dimmramp() {
+	for (uint8_t i = 0; i < LEDS; i++) {
+		dimmrampen[i].steigung = ((rgb_buffer_soll[i] - rgb_buffer_ist[i]) * 100) / (LED_DIMM_TIME / TIMER32_0_STEP);
+		dimmrampen[i].nullstelle = rgb_buffer_ist[i];
+	}
+}
+
+/*
+ * The main processing loop.
+ */
+void LED::LEDPeriod() {
+
+	// hand detected and no dimming and no nightlight is on and information function is active
+	if (flag_sens_pos && !flag_dimmen && !flag_nightlight_on && function_leds_active) {
+		for (uint8_t i = 0; i < LEDS / 3; i++) {
+			rgb_buffer_soll[rgb_leds[i].blau] = rgb_buffer_vorgabe[rgb_leds[i].blau];
+			rgb_buffer_soll[rgb_leds[i].rot] = rgb_buffer_vorgabe[rgb_leds[i].rot];
+			rgb_buffer_soll[rgb_leds[i].gruen] = rgb_buffer_vorgabe[rgb_leds[i].gruen];
+		}
+
+		calculate_dimmramp();
+
+		flag_sens_pos = 0;
+		flag_dimmen = 1;
+		flag_led_on = 1;
+	}
+
+	// time was running out and no dimming
+	if (flag_sens_neg && !flag_dimmen) {
+		for (uint8_t i = 0; i < LEDS; i++) {
+			rgb_buffer_soll[i] = 0x00;
+		}
+
+		calculate_dimmramp();
+
+		flag_sens_neg = 0;
+		flag_dimmen = 1;
+		flag_led_on = 0;
+	}
+
+	// nightlight on if nightlight_active and no other lightning
+	if (nightlight_active && !flag_dimmen && !flag_led_on && !flag_nightlight_on) {
+		for (uint8_t i = 0; i < LEDS / 3; i++) {
+			rgb_buffer_soll[rgb_leds[i].blau] = rgb_buffer_nachtlicht[rgb_leds[0].blau];
+			rgb_buffer_soll[rgb_leds[i].rot] = rgb_buffer_nachtlicht[rgb_leds[0].rot];
+			rgb_buffer_soll[rgb_leds[i].gruen] = rgb_buffer_nachtlicht[rgb_leds[0].gruen];
+		}
+
+		calculate_dimmramp();
+
+		flag_dimmen = 1;
+		flag_nightlight_on = 1;
+	}
+
+	// if nightlight isn't active anymore or a hand was detected
+	if ((!nightlight_active && flag_nightlight_on) || (flag_nightlight_on && flag_sens_pos)) {
+		for (uint8_t i = 0; i < LEDS; i++) {
+			rgb_buffer_soll[i] = 0x00;
+		}
+
+		calculate_dimmramp();
+
+		flag_dimmen = 1;
+		flag_nightlight_on = 0;
+	}
+}
+

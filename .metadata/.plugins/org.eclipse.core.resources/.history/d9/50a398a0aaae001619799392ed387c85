@@ -1,0 +1,151 @@
+/*
+ *  A simple example for SPI.
+
+ *
+ *  This example configures SPI for output and sends a byte every second.
+ *
+ *  Copyright (c) 2014 Stefan Taferner <stefan.taferner@gmx.at>
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ */
+#include <stdlib.h>
+
+#include <sblib/eib/sblib_default_objects.h>
+#include <sblib/core.h>
+#include <sblib/ioports.h>
+#include <sblib/spi.h>
+#include <sblib/serial.h>
+#include <sblib/timeout.h>
+
+#include "lcd.h"
+#include "params.h"
+#include <sblib/i2c/SHT2x.h>
+#include <sblib/i2c/iaq-core.h>
+#include "pwm.h"
+#include "app_temp_control.h"
+
+#define _DEBUG__
+
+#ifdef _DEBUG__
+Serial Serial(PIO2_7, PIO2_8);
+#endif
+
+//SPI spi(SPI_PORT_0);
+
+int blinkPin = PIO0_7;
+
+SHT2xClass SHT21;
+
+IAQcoreClass IAQcore;
+
+// Debouncers for inputs
+Debouncer inputDebouncer[NUM_CHANNELS]; // debouncing for both buttons
+
+// Timeout
+Timeout timeout[NUM_TIMED_VALUES];
+
+
+
+
+
+
+
+/*
+ * Initialize the application.
+ */
+void setup() {
+
+//	bcu.setProgPin(PIN_PROG);
+
+	bcu.begin(76, 0x474, 2);  // we are a MDT temperatur controller, version 1.2
+
+//	pinMode(blinkPin, OUTPUT);
+
+//	memcpy(userEeprom.order, hardwareVersion, sizeof(hardwareVersion));
+
+	// Enable the serial port with 19200 baud, no parity, 1 stop bit
+#ifdef _DEBUG__
+	serial.begin(19200);
+	serial.println("UC1701x Display Taster TEST");
+#endif
+
+	// Configure the input pins and initialize the debouncers with the current
+	// value of the pin.
+//	for (int channel = 0; channel < NUM_CHANNELS; ++channel) {
+//		pinMode(inputPins[channel], INPUT | HYSTERESIS | PULL_UP);
+//		inputDebouncer[channel].init(digitalRead(inputPins[channel]));
+//	}
+
+	initLCD();
+
+	init_pwm();
+	setPWM(0);
+
+	SHT21.Init();
+
+	IAQcore.Init();
+
+	initApplication();
+}
+
+/*
+ * The main processing loop.
+ */
+void loop() {
+
+	m2.checkKey();
+	if (m2.handleKey() || update_graphics() != 0 ) {
+		u8g_FirstPage(&u8g);
+		do {
+			draw_menu();
+		} while (u8g_NextPage(&u8g));
+	}
+
+//	u8g_FirstPage(&u8g);
+//	do {
+//		draw_menu();
+//	} while (u8g_NextPage(&u8g));
+
+//	uint16_t CO2eq;
+//	uint8_t status;
+//	uint32_t resistance;
+//	uint16_t Tvoc;
+//
+//	uint8_t temp_cycle = 0;
+//
+//    int debounceTime = userEeprom[EE_TIMING_PARAMS_BASE + 3];
+//    int objno, channel, value, lastValue;
+//
+//	//uint8_t pos = 0;
+//
+//	/* picture loop */
+//	u8g_FirstPage(&u8g);
+//	do {
+//		temperature_screen();
+//	} while (u8g_NextPage(&u8g));
+//
+//	SHT21.GetHumidity();
+//	IAQcore.GetIAQ(CO2eq, status, resistance, Tvoc);
+//	delay(1000);
+//
+//
+//	// Handle the input pins
+//	for (channel = 0; channel < NUM_CHANNELS; ++channel)
+//	{
+//		lastValue = inputDebouncer[channel].value();
+//	    value = inputDebouncer[channel].debounce(digitalRead(inputPins[channel]), debounceTime);
+//
+//	    if (lastValue != value)
+//	    	inputChanged(channel, value);
+//	}
+
+//    draw_state++;
+//    if ( draw_state >= 5*8 )
+//      draw_state = 0;
+
+	/* refresh screen after some delay */
+//	u8g_Delay(100);
+}
+

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;uc1701.h&apos; to &apos;inc&apos;" description="Move &apos;uc1701.h&apos; to &apos;inc&apos;" destination="inc" element1="/Taster_RGB_WS2803/inc/uc1701.h" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1466938657178" updateReferences="true"/>
+</session>

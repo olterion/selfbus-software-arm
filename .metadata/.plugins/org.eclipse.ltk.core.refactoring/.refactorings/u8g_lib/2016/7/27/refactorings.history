@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;u8g_lib/src/u8g_arm.c&apos; to &apos;u8g_arm.cpp&apos;" description="Rename resource &apos;u8g_arm.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/u8g_arm.c" name="u8g_arm.cpp" stamp="1468180821022" updateReferences="true"/>
+</session>

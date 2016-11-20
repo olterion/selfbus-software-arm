@@ -1,0 +1,129 @@
+/*
+ *  A simple example for SPI.
+
+ *
+ *  This example configures SPI for output and sends a byte every second.
+ *
+ *  Copyright (c) 2014 Stefan Taferner <stefan.taferner@gmx.at>
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ */
+
+#include <sblib/eib/sblib_default_objects.h>
+#include <sblib/core.h>
+#include <sblib/ioports.h>
+#include <sblib/spi.h>
+#include <sblib/serial.h>
+
+#include <u8g_arm.h>
+#include "lcd.h"
+#include "params.h"
+#include <sblib/i2c/SHT2x.h>
+#include <sblib/i2c/iaq-core.h>
+
+
+#define _DEBUG__
+
+#ifdef _DEBUG__
+Serial Serial(PIO2_7, PIO2_8);
+#endif
+
+//SPI spi(SPI_PORT_0);
+
+int blinkPin = PIO0_7;
+
+SHT2xClass SHT21;
+
+IAQcoreClass IAQcore;
+
+void init_pwm(void) {
+	pinMode(PIO3_2, OUTPUT_MATCH);  // configure digital pin PIO2_6 to match MAT1 of timer32 #0
+
+	// Begin using the timer.
+	timer16_0.begin();
+
+	timer16_0.prescaler((SystemCoreClock / 10000) - 1); // let the timer count milliseconds
+	timer16_0.matchMode(MAT2, SET);  // set the output of PIO2_6 to 1 when the timer matches MAT1
+	timer16_0.match(MAT2, 8);      // match MAT1 when the timer reaches this value
+	timer16_0.pwmEnable(MAT2);       // enable PWM for match channel MAT1
+
+	// Reset the timer when the timer matches MAT3 and generate an interrupt.
+	timer16_0.matchMode(MAT3, RESET | INTERRUPT);
+	timer16_0.match(MAT3, 10);     // match MAT3 after 1000 milliseconds
+
+	timer16_0.start();
+}
+
+
+static const char APP_VERSION[] __attribute__((used)) = "Binary Input 1.1.21";
+
+// Hardware version. Must match the product_serial_number in the VD's table hw_product
+// find it in the knxprod XML file in parameter "LdCtrlCompareProp"
+const unsigned char hardwareVersion[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x48 };
+
+/*
+ * Initialize the application.
+ */
+void setup() {
+
+//	bcu.setProgPin(PIN_PROG);
+
+	bcu.begin(76, 0x474, 2);  // we are a MDT temperatur controller, version 1.2
+
+//	pinMode(blinkPin, OUTPUT);
+
+//	memcpy(userEeprom.order, hardwareVersion, sizeof(hardwareVersion));
+
+	// Enable the serial port with 19200 baud, no parity, 1 stop bit
+#ifdef _DEBUG__
+	serial.begin(19200);
+	serial.println("UC1701x Display Taster TEST");
+#endif
+
+	u8g_InitComFn(&u8g, &u8g_dev_uc1701_mini12864_hw_spi, u8g_com_hw_spi_fn);
+
+	u8g_SetDefaultForegroundColor(&u8g);
+
+	init_pwm();
+
+	SHT21.Init();
+
+	IAQcore.Init();
+}
+
+/*
+ * The main processing loop.
+ */
+void loop() {
+
+	uint16_t CO2eq;
+	uint8_t status;
+	uint32_t resistance;
+	uint16_t Tvoc;
+
+	uint8_t temp_cycle = 0;
+
+	//uint8_t pos = 0;
+
+	temp_cycle = userEeprom.getUInt8(EE_BASE_ADDRESS + EE_ACTUAL_TEMP_SEND_CYCLIC);
+
+	/* picture loop */
+	u8g_FirstPage(&u8g);
+	do {
+		temperature_screen();
+	} while (u8g_NextPage(&u8g));
+
+	SHT21.GetHumidity();
+	IAQcore.GetIAQ(CO2eq, status, resistance, Tvoc);
+	delay(1000);
+
+//    draw_state++;
+//    if ( draw_state >= 5*8 )
+//      draw_state = 0;
+
+	/* refresh screen after some delay */
+//	u8g_Delay(100);
+}
+

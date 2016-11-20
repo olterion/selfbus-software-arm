@@ -1,0 +1,6 @@
+21:36:26 **** Incremental Build of configuration Debug for project M2tklib ****
+make -r all 
+make: Nothing to be done for `all'.
+
+21:36:27 Build Finished (took 852ms)
+

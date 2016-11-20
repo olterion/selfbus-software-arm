@@ -1,0 +1,46 @@
+21:06:59 **** Incremental Build of configuration Debug_LPC11 for project out8-dimmer-bim112 ****
+make -r all 
+Building file: ../src/app_main.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DDUMP_MEM_OPS -DBIM112 -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\src" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\inc" -Og -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/app_main.d" -MT"src/app_main.o" -MT"src/app_main.d" -o "src/app_main.o" "../src/app_main.cpp"
+Finished building: ../src/app_main.cpp
+ 
+Building file: ../src/channel.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DDUMP_MEM_OPS -DBIM112 -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\src" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\inc" -Og -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/channel.d" -MT"src/channel.o" -MT"src/channel.d" -o "src/channel.o" "../src/channel.cpp"
+Finished building: ../src/channel.cpp
+ 
+Building file: ../src/cr_cpp_config.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DDUMP_MEM_OPS -DBIM112 -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\src" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\inc" -Og -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/cr_cpp_config.d" -MT"src/cr_cpp_config.o" -MT"src/cr_cpp_config.d" -o "src/cr_cpp_config.o" "../src/cr_cpp_config.cpp"
+Finished building: ../src/cr_cpp_config.cpp
+ 
+Building file: ../src/cr_startup_lpc11xx.cpp
+Invoking: MCU C++ Compiler
+arm-none-eabi-c++ -D__NEWLIB__ -DDUMP_MEM_OPS -DBIM112 -DDEBUG -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\src" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\inc" -Og -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/cr_startup_lpc11xx.d" -MT"src/cr_startup_lpc11xx.o" -MT"src/cr_startup_lpc11xx.d" -o "src/cr_startup_lpc11xx.o" "../src/cr_startup_lpc11xx.cpp"
+Finished building: ../src/cr_startup_lpc11xx.cpp
+ 
+Building file: ../src/crp.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -DBIM112 -D__CODE_RED -DCORE_M0 -D__USE_CMSIS=CMSIS_CORE_LPC11xx -DCPP_USE_HEAP -D__LPC11XX__ -D__NEWLIB__ -Og -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb -D__NEWLIB__ -MMD -MP -MF"src/crp.d" -MT"src/crp.o" -MT"src/crp.d" -o "src/crp.o" "../src/crp.c"
+Finished building: ../src/crp.c
+ 
+Building target: out8-dimmer-bim112.axf
+Invoking: MCU C++ Linker
+arm-none-eabi-c++ -nostdlib -L"C:\Users\Olli\CloudStation\uC_Stuff\LPC_workspaces\LPC1115_Selfbus\CMSIS_CORE_LPC11xx\Debug" -L"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112" -Xlinker -Map="out8-dimmer-bim112.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "8fold-dimmer-bim112_Debug_LPC11.ld" -o "out8-dimmer-bim112.axf"  ./src/app-out8-dimmer.o ./src/app_main.o ./src/channel.o ./src/cr_cpp_config.o ./src/cr_startup_lpc11xx.o ./src/crp.o   -lCMSIS_CORE_LPC11xx -lsblib
+./src/app_main.o: In function `setup()':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\Debug_LPC11/../src/app_main.cpp:59: undefined reference to `bcu'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\Debug_LPC11/../src/app_main.cpp:59: undefined reference to `bus'
+./src/app_main.o: In function `loop()':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-incubation\actuators\dimmer\out8-dimmer-bim112\Debug_LPC11/../src/app_main.cpp:83: undefined reference to `bus'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112\libsblib.a(bcu_base.o): In function `TIMER16_1_IRQHandler':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112/../src/eib/bcu_base.cpp:26: undefined reference to `bus'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112\libsblib.a(bcu_base.o): In function `BcuBase::begin_1(int, int, int)':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112/../src/eib/bcu_base.cpp:88: undefined reference to `bus'
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112\libsblib.a(main.o): In function `main':
+C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\Debug_BIM112/../src/main.cpp:39: undefined reference to `bcu'
+collect2.exe: error: ld returned 1 exit status
+make: *** [out8-dimmer-bim112.axf] Error 1
+
+21:07:02 Build Finished (took 3s.714ms)
+

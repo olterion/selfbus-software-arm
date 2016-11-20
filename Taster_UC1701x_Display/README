@@ -1,0 +1,15 @@
+Room temperature controller
+=======
+
+Please use the SCN-RT1GX.01 for ETS configuration from this site:
+http://www.mdt.de/download/MDT_KP_Glas_Raumtemperaturregler_V12.knxprod
+
+Used IO Ports
+-------------
+
+(Pins for Display can be changed in u8g_arm.cpp)
+P0.6	SCK0 (Display)
+P0.9	MOSI0 (Display)
+P1.0	RESET (Display)
+P1.1	A0 or CD (Control Data) (Display)
+P1.2	CS (Display)

@@ -1,0 +1,7 @@
+20:26:32 **** Clean-only build of configuration Debug (LPC11UXX) for project Bus-Updater ****
+make -r clean 
+rm -rf  ./src/bcu_updater.o ./src/boot_descriptor_block.o ./src/bootloader.o ./src/cr_startup_lpc11xx.o ./src/crc.o ./src/crp.o ./src/update.o  ./src/boot_descriptor_block.d ./src/crc.d ./src/crp.d  ./src/bcu_updater.d ./src/bootloader.d ./src/cr_startup_lpc11xx.d ./src/update.d  Bus-Updater.axf
+ 
+
+20:26:33 Build Finished (took 1s.501ms)
+

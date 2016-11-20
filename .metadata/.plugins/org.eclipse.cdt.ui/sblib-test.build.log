@@ -1,0 +1,208 @@
+21:15:15 **** Build of configuration Debug_BCU1 for project sblib-test ****
+make -k all 
+Building file: ../src/protocol.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"src/protocol.d" -MT"src/protocol.d" -o "src/protocol.o" "../src/protocol.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [src/protocol.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/sensors/dht.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/sensors/dht.d" -MT"sblib/sensors/dht.d" -o "sblib/sensors/dht.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/sensors/dht.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/sensors/dht.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/sensors/ds18x20.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/sensors/ds18x20.d" -MT"sblib/sensors/ds18x20.d" -o "sblib/sensors/ds18x20.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/sensors/ds18x20.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/sensors/ds18x20.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/digital_pin.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lpc11xx/digital_pin.d" -MT"sblib/lpc11xx/digital_pin.d" -o "sblib/lpc11xx/digital_pin.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/digital_pin.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lpc11xx/digital_pin.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/digital_pin_port.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lpc11xx/digital_pin_port.d" -MT"sblib/lpc11xx/digital_pin_port.d" -o "sblib/lpc11xx/digital_pin_port.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/digital_pin_port.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lpc11xx/digital_pin_port.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/digital_pin_pulse.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lpc11xx/digital_pin_pulse.d" -MT"sblib/lpc11xx/digital_pin_pulse.d" -o "sblib/lpc11xx/digital_pin_pulse.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/digital_pin_pulse.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lpc11xx/digital_pin_pulse.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/platform.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lpc11xx/platform.d" -MT"sblib/lpc11xx/platform.d" -o "sblib/lpc11xx/platform.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lpc11xx/platform.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lpc11xx/platform.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/font.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lcd/font.d" -MT"sblib/lcd/font.d" -o "sblib/lcd/font.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/font.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lcd/font.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/font_5x7.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lcd/font_5x7.d" -MT"sblib/lcd/font_5x7.d" -o "sblib/lcd/font_5x7.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/font_5x7.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lcd/font_5x7.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/graphical.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lcd/graphical.d" -MT"sblib/lcd/graphical.d" -o "sblib/lcd/graphical.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/graphical.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lcd/graphical.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/graphical_eadogs.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lcd/graphical_eadogs.d" -MT"sblib/lcd/graphical_eadogs.d" -o "sblib/lcd/graphical_eadogs.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/graphical_eadogs.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lcd/graphical_eadogs.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/graphical_sed1520.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/lcd/graphical_sed1520.d" -MT"sblib/lcd/graphical_sed1520.d" -o "sblib/lcd/graphical_sed1520.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/lcd/graphical_sed1520.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/lcd/graphical_sed1520.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/i2c/bh1750.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/i2c/bh1750.d" -MT"sblib/i2c/bh1750.d" -o "sblib/i2c/bh1750.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/i2c/bh1750.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/i2c/bh1750.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/i2c/ds3231.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/i2c/ds3231.d" -MT"sblib/i2c/ds3231.d" -o "sblib/i2c/ds3231.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/i2c/ds3231.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/i2c/ds3231.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/addr_tables.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/addr_tables.d" -MT"sblib/eib/addr_tables.d" -o "sblib/eib/addr_tables.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/addr_tables.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/addr_tables.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/bcu.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/bcu.d" -MT"sblib/eib/bcu.d" -o "sblib/eib/bcu.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/bcu.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/bcu.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/bcu_base.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/bcu_base.d" -MT"sblib/eib/bcu_base.d" -o "sblib/eib/bcu_base.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/bcu_base.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/bcu_base.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/bus.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/bus.d" -MT"sblib/eib/bus.d" -o "sblib/eib/bus.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/bus.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/bus.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/com_objects.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/com_objects.d" -MT"sblib/eib/com_objects.d" -o "sblib/eib/com_objects.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/com_objects.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/com_objects.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/datapoint_types.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/datapoint_types.d" -MT"sblib/eib/datapoint_types.d" -o "sblib/eib/datapoint_types.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/datapoint_types.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/datapoint_types.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/properties.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/properties.d" -MT"sblib/eib/properties.d" -o "sblib/eib/properties.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/properties.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/properties.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/property_defs.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/property_defs.d" -MT"sblib/eib/property_defs.d" -o "sblib/eib/property_defs.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/property_defs.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/property_defs.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/property_types.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/property_types.d" -MT"sblib/eib/property_types.d" -o "sblib/eib/property_types.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/property_types.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/property_types.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/telegram.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/telegram.d" -MT"sblib/eib/telegram.d" -o "sblib/eib/telegram.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/telegram.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/telegram.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/user_memory.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/eib/user_memory.d" -MT"sblib/eib/user_memory.d" -o "sblib/eib/user_memory.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/eib/user_memory.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/eib/user_memory.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/analog_pin.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/analog_pin.d" -MT"sblib/analog_pin.d" -o "sblib/analog_pin.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/analog_pin.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/analog_pin.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/arrays.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/arrays.d" -MT"sblib/arrays.d" -o "sblib/arrays.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/arrays.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/arrays.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/buffered_stream.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/buffered_stream.d" -MT"sblib/buffered_stream.d" -o "sblib/buffered_stream.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/buffered_stream.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/buffered_stream.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/debounce.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/debounce.d" -MT"sblib/debounce.d" -o "sblib/debounce.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/debounce.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/debounce.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/debug.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/debug.d" -MT"sblib/debug.d" -o "sblib/debug.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/debug.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/debug.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/digital_pin_shift.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/digital_pin_shift.d" -MT"sblib/digital_pin_shift.d" -o "sblib/digital_pin_shift.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/digital_pin_shift.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/digital_pin_shift.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/i2c.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/i2c.d" -MT"sblib/i2c.d" -o "sblib/i2c.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/i2c.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/i2c.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/iap.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/iap.d" -MT"sblib/iap.d" -o "sblib/iap.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/iap.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/iap.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/ioports.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/ioports.d" -MT"sblib/ioports.d" -o "sblib/ioports.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/ioports.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/ioports.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/main.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/main.d" -MT"sblib/main.d" -o "sblib/main.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/main.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/main.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/mem_mapper.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/mem_mapper.d" -MT"sblib/mem_mapper.d" -o "sblib/mem_mapper.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/mem_mapper.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/mem_mapper.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/new.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/new.d" -MT"sblib/new.d" -o "sblib/new.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/new.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/new.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/onewire.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/onewire.d" -MT"sblib/onewire.d" -o "sblib/onewire.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/onewire.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/onewire.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/print.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/print.d" -MT"sblib/print.d" -o "sblib/print.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/print.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/print.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/serial.cpp
+Invoking: GCC C++ Compiler
+g++ -D__LPC11XX__ -DIAP_EMULATION -DBCU_TYPE=10 -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\sblib\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\cpu-emu" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\Catch\inc" -I"C:\Users\Olli\CloudStation\uC_Stuff\Selfbus\software-arm-lib\test\sblib\inc" -O0 -g3 -Wall -m32 -c -fmessage-length=0 -MMD -MP -MF"sblib/serial.d" -MT"sblib/serial.d" -o "sblib/serial.o" "C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/serial.cpp"
+/usr/bin/sh: g++: command not found
+make: *** [sblib/serial.o] Error 127
+Building file: C:/Users/Olli/CloudStation/uC_Stuff/Selfbus/software-arm-lib/sblib/src/serial0.cpp
+Invoking: GCC C++ Compiler
+Command canceled
+
+21:15:21 Build Cancelled (took 6s.551ms)
+

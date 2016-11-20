@@ -1,0 +1,190 @@
+#include <u8g_arm.h>
+#include <M2tk.h>
+#include <m2ghu8g.h>
+#include "lcd.h"
+#include <sblib/core.h>
+#include <sblib/timeout.h>
+#include "params.h"
+
+uint8_t draw_state = 0;
+
+u8g_t u8g;
+
+struct lcd_home_screen window_ventilation;
+
+//ohne dieses lässt es sich nicht kompilieren....?!
+void u8g_box_frame(uint8_t a) {
+  u8g_DrawBox(&u8g, 5,10,20,10);
+  u8g_DrawStr(&u8g, 0, 30, "drawFrame");
+  u8g_DrawFrame(&u8g, 10+a,15+30,30,7);
+}
+
+
+void initLCD(void) {
+	u8g_InitComFn(&u8g, &u8g_dev_uc1701_mini12864_hw_spi, u8g_com_hw_spi_fn);
+
+	u8g_SetDefaultForegroundColor(&u8g);
+
+	/* 2. Setup m2 */
+//	m2_Init(&top_el_x2l_menu, m2_es_arduino, m2_eh_4bs, m2_gh_u8g_bfs);
+	/* connect u8glib with m2tklib */
+	m2_SetU8g(&u8g, m2_u8g_box_icon);
+
+	/* assign u8g font to index 0 */
+	m2.setFont(0, u8g_font_6x13);
+
+	// Setup keys
+	m2.setPin(M2_KEY_SELECT, uiKeySelectPin);
+	m2.setPin(M2_KEY_PREV, uiKeyUpPin);
+	m2.setPin(M2_KEY_NEXT, uiKeyDownPin);
+	m2.setPin(M2_KEY_EXIT, uiKeyExitPin);
+}
+
+
+//================================================================
+// m2tklib forward declarations
+
+
+M2_EXTERN_ALIGN(el_menu);
+
+//================================================================
+// low level graphics
+
+uint32_t homescreen_update_time = 0;
+
+// will return none-zero if an update is required
+uint8_t update_home_screen(void) {
+  if ( homescreen_update_time < millis() ) {
+    homescreen_update_time = millis();
+    homescreen_update_time += 300;
+    return 1;
+  }
+  return 0;
+}
+
+void draw_home_screen(void) {
+  u8g_SetDefaultForegroundColor(&u8g);
+  u8g_DrawXBMP(&u8g, 100, 8, luefter_width, luefter_height, luefter_bits);
+  u8g_DrawXBMP(&u8g, 0, 8, snowflake_width, snowflake_height, snowflake_bits);
+}
+
+
+//================================================================
+// m2tk related code
+
+uint8_t y = 0;                   // position of the low level graphics
+
+void fn_inc(m2_el_fnarg_p fnarg) {
+  if ( y < 63-10 )
+    y += 1;
+}
+
+void fn_dec(m2_el_fnarg_p fnarg) {
+  if ( y > 0 )
+    y -= 1;
+}
+
+
+/*=== number entry ===*/
+
+uint8_t u8num = 0;
+uint32_t u32num = 0;
+
+void fn_num_zero(m2_el_fnarg_p fnarg) {
+  u8num = 0;
+  u32num = 0;
+}
+
+M2_LABEL(el_num_label1, NULL, "U8:");
+M2_U8NUM(el_num_1, NULL, 0, 255, &u8num);	//das wollen wir!!
+
+M2_LABEL(el_num_label2, NULL, "U32:");
+M2_U32NUM(el_num_2, "c5", &u32num);
+
+M2_BUTTON(el_num_zero, "f4", " zero ", fn_num_zero);
+M2_ROOT(el_num_goto_top, "f4", " back ", &el_menu);
+
+M2_LIST(num_list) = {
+    &el_num_label1, &el_num_1,
+    &el_num_label2, &el_num_2,
+    &el_num_zero, &el_num_goto_top
+};
+M2_GRIDLIST(el_num_menu_grid, "c2", num_list);
+M2_ALIGN(el_top_num_menu, "-1|1W64H64", &el_num_menu_grid);
+
+
+//Menu functions: LCD Backlight level, LCD Backlight on time, return time to home screen
+
+M2_BUTTON(el_plus, "x30y35", "-1", fn_dec);
+M2_BUTTON(el_minus, "x30y49", "+1", fn_inc);
+M2_ROOT(el_leave_combine, "x30y1", "Back", &el_menu);
+M2_LIST(el_btn_list) = { &el_plus, &el_minus, &el_leave_combine};
+M2_XYLIST(el_combine, NULL, el_btn_list);
+
+M2_LABEL(el_goto_title, NULL, "Graphics and M2tk");
+M2_ROOT(el_goto_combine, NULL, "Combine", &el_combine);
+M2_ROOT(el_goto_switch, NULL, "Switch", &m2_null_element);             // selecting this, will remove all menues
+M2_ROOT(el_goto_numbers, NULL, "numbers", &el_top_num_menu);
+M2_LIST(list_menu) = {&el_goto_title, &el_goto_combine, &el_goto_switch, &el_goto_numbers};
+M2_VLIST(el_menu_vlist, NULL, list_menu);
+M2_ALIGN(el_menu, "W64H64", &el_menu_vlist);
+
+M2tk m2(&el_menu, m2_es_arduino, m2_eh_4bs, m2_gh_u8g_ffs);
+
+//================================================================
+// high level draw and update procedures
+
+void draw_graphics(void) {
+  // show the graphics depending on the current toplevel element
+
+//  if ( m2.getRoot() == &el_combine ) {
+//      // combine is active, do add the rectangle
+//      // menu is on the right, put the rectangle to the left
+////      draw_rectangle(0,y);
+//  }
+
+  if ( m2.getRoot() == &m2_null_element ) {
+      // all menus are gone, show the rectangle
+      draw_home_screen();
+  }
+}
+
+// update graphics, will return none-zero if an update is required
+uint8_t update_graphics(uint8_t handleKeyResult) {
+  if ( m2.getRoot() == &el_menu ) {
+      // switch to home screen after a while
+	  if(!timeout[LCD_HOME_SCREEN].started()){
+		  timeout[LCD_HOME_SCREEN].start(RETURNTIME_HOMESCREEN);
+	  }
+	  if ( handleKeyResult ){
+		  timeout[LCD_HOME_SCREEN].start(RETURNTIME_HOMESCREEN);
+	  }
+
+	  if(timeout[LCD_HOME_SCREEN].expired()){
+		  m2.setRoot(&m2_null_element);
+	  }
+
+      return handleKeyResult;//update_home_screen();
+  }
+
+  if ( m2.getRoot() == &m2_null_element ) {
+      // check for any keys and assign a suitable menu again
+      if ( m2.getKey() != M2_KEY_NONE ){
+    	  m2.setRoot(&el_menu);
+
+      }
+
+      // all menus are gone, rectangle is shown, so do update
+      return update_home_screen() || handleKeyResult;
+  }
+
+  // no update for the graphics required
+  return 0;
+}
+
+//================================================================
+// overall draw procedure for u8glib
+void draw_menu(void) {
+	draw_graphics();
+	m2.draw();
+}

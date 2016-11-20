@@ -1,0 +1,6 @@
+22:26:27 **** Build of configuration Debug_BCU1 for project sblib ****
+make -r all 
+make: Nothing to be done for `all'.
+
+22:26:27 Build Finished (took 235ms)
+

@@ -1,0 +1,287 @@
+/*
+ *  A simple example for SPI.
+
+ *
+ *  This example configures SPI for output and sends a byte every second.
+ *
+ *  Copyright (c) 2014 Stefan Taferner <stefan.taferner@gmx.at>
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ */
+#include <stdlib.h>
+
+#include <sblib/eib/sblib_default_objects.h>
+#include <sblib/core.h>
+#include <sblib/ioports.h>
+#include <sblib/spi.h>
+#include <sblib/serial.h>
+#include <sblib/timeout.h>
+
+#include <u8g_arm.h>
+#include <M2tk.h>
+#include <m2ghu8g.h>
+#include "lcd.h"
+#include "params.h"
+#include <sblib/i2c/SHT2x.h>
+#include <sblib/i2c/iaq-core.h>
+#include "pwm.h"
+#include "app_temp_control.h"
+
+#define _DEBUG__
+
+#ifdef _DEBUG__
+Serial Serial(PIO2_7, PIO2_8);
+#endif
+
+//SPI spi(SPI_PORT_0);
+
+int blinkPin = PIO0_7;
+
+SHT2xClass SHT21;
+
+IAQcoreClass IAQcore;
+
+// Debouncers for inputs
+Debouncer inputDebouncer[NUM_CHANNELS]; // debouncing for both buttons
+
+// Timeout
+Timeout timeout[NUM_TIMED_VALUES];
+
+// Input pins
+static const int inputPins[] = { PIO2_3, PIO2_2 }; // input pins for both buttons
+
+static const int uiKeyUpPin = PIO0_7;
+static const int uiKeyDownPin = PIO1_4;
+static const int uiKeySelectPin = PIO1_6;
+static const int uiKeyExitPin = PIO1_7;
+
+
+//================================================================
+// m2tklib forward declarations
+
+extern M2tk m2;
+M2_EXTERN_ALIGN(el_top);
+
+//================================================================
+// low level graphics
+
+uint8_t is_bigger = 0;
+uint32_t next_state_change = 0;
+uint8_t size = 1;
+
+/* draw a rectange at x/y */
+void draw_rectangle(uint8_t x, uint8_t y) {
+  u8g_SetDefaultForegroundColor(&u8g);
+  u8g_DrawBox(&u8g,x,y,size,size);
+}
+
+// state machine for the animation of the rectangle
+// will return none-zero if an update is required
+uint8_t update_rectangle(void) {
+  if ( next_state_change < millis() ) {
+    next_state_change = millis();
+    next_state_change += 300;
+    if ( is_bigger == 0 ) {
+      size -= 1;
+      if ( size <= 1 )
+        is_bigger = 1;
+    }
+    else {
+      size += 1;
+      if ( size >= 10 )
+        is_bigger = 0;
+    }
+    return 1;
+  }
+  return 0;
+}
+
+//================================================================
+// m2tk related code
+
+uint8_t y = 0;                   // position of the low level graphics
+
+void fn_inc(m2_el_fnarg_p fnarg) {
+  if ( y < 63-10 )
+    y += 1;
+}
+
+void fn_dec(m2_el_fnarg_p fnarg) {
+  if ( y > 0 )
+    y -= 1;
+}
+
+M2_BUTTON(el_plus, "x30y41", "-1", fn_dec);
+M2_BUTTON(el_minus, "x30y0", "+1", fn_inc);
+M2_ROOT(el_leave_combine, "x30y1", "Back", &el_top);
+M2_LIST(el_btn_list) = { &el_plus, &el_minus, &el_leave_combine};
+M2_XYLIST(el_combine, NULL, el_btn_list);
+
+M2_LABEL(el_goto_title, NULL, "Graphics and M2tk");
+M2_ROOT(el_goto_combine, NULL, "Combine", &el_combine);
+M2_ROOT(el_goto_switch, NULL, "Switch", &m2_null_element);             // selecting this, will remove all menues
+M2_LIST(list_menu) = {&el_goto_title, &el_goto_combine, &el_goto_switch};
+M2_VLIST(el_menu_vlist, NULL, list_menu);
+M2_ALIGN(el_top, "W64H64", &el_menu_vlist);
+
+M2tk m2(&el_top, m2_es_arduino, m2_eh_4bs, m2_gh_u8g_ffs);
+
+//================================================================
+// high level draw and update procedures
+
+void draw_graphics(void) {
+  // show the graphics depending on the current toplevel element
+
+  if ( m2.getRoot() == &el_combine ) {
+      // combine is active, do add the rectangle
+      // menu is on the right, put the rectangle to the left
+      draw_rectangle(0,y);
+  }
+
+  if ( m2.getRoot() == &m2_null_element ) {
+      // all menus are gone, show the rectangle
+      draw_rectangle(10,10);
+  }
+}
+
+// update graphics, will return none-zero if an update is required
+uint8_t update_graphics(void) {
+  if ( m2.getRoot() == &el_combine ) {
+      // combine is active, update the rectangle for animation
+      return update_rectangle();
+  }
+
+  if ( m2.getRoot() == &m2_null_element ) {
+      // check for any keys and assign a suitable menu again
+      if ( m2.getKey() != M2_KEY_NONE )
+        m2.setRoot(&el_top);
+
+      // all menus are gone, rectangle is shown, so do update
+      return update_rectangle();
+  }
+
+  // no update for the graphics required
+  return 0;
+}
+
+//================================================================
+// overall draw procedure for u8glib
+void draw_menu(void) {
+	draw_graphics();
+	m2.draw();
+}
+
+/*
+ * Initialize the application.
+ */
+void setup() {
+
+//	bcu.setProgPin(PIN_PROG);
+
+	bcu.begin(76, 0x474, 2);  // we are a MDT temperatur controller, version 1.2
+
+//	pinMode(blinkPin, OUTPUT);
+
+//	memcpy(userEeprom.order, hardwareVersion, sizeof(hardwareVersion));
+
+	// Enable the serial port with 19200 baud, no parity, 1 stop bit
+#ifdef _DEBUG__
+	serial.begin(19200);
+	serial.println("UC1701x Display Taster TEST");
+#endif
+
+	// Configure the input pins and initialize the debouncers with the current
+	// value of the pin.
+//	for (int channel = 0; channel < NUM_CHANNELS; ++channel) {
+//		pinMode(inputPins[channel], INPUT | HYSTERESIS | PULL_UP);
+//		inputDebouncer[channel].init(digitalRead(inputPins[channel]));
+//	}
+
+	u8g_InitComFn(&u8g, &u8g_dev_uc1701_mini12864_hw_spi, u8g_com_hw_spi_fn);
+
+	//u8g_SetDefaultForegroundColor(&u8g);
+
+	/* 2. Setup m2 */
+//	m2_Init(&top_el_x2l_menu, m2_es_arduino, m2_eh_4bs, m2_gh_u8g_bfs);
+	/* connect u8glib with m2tklib */
+	m2_SetU8g(&u8g, m2_u8g_box_icon);
+
+	/* assign u8g font to index 0 */
+	m2.setFont(0, u8g_font_6x13);
+
+	// Setup keys
+	m2.setPin(M2_KEY_SELECT, uiKeySelectPin);
+	m2.setPin(M2_KEY_PREV, uiKeyUpPin);
+	m2.setPin(M2_KEY_NEXT, uiKeyDownPin);
+	m2.setPin(M2_KEY_EXIT, uiKeyExitPin);
+
+	init_pwm();
+
+	SHT21.Init();
+
+	IAQcore.Init();
+
+	initApplication();
+}
+
+/*
+ * The main processing loop.
+ */
+void loop() {
+
+	m2.checkKey();
+	if (m2.handleKey() || update_graphics() != 0 ) {
+		u8g_FirstPage(&u8g);
+		do {
+			draw_menu();
+		} while (u8g_NextPage(&u8g));
+	}
+
+//	u8g_FirstPage(&u8g);
+//	do {
+//		draw_menu();
+//	} while (u8g_NextPage(&u8g));
+
+//	uint16_t CO2eq;
+//	uint8_t status;
+//	uint32_t resistance;
+//	uint16_t Tvoc;
+//
+//	uint8_t temp_cycle = 0;
+//
+//    int debounceTime = userEeprom[EE_TIMING_PARAMS_BASE + 3];
+//    int objno, channel, value, lastValue;
+//
+//	//uint8_t pos = 0;
+//
+//	/* picture loop */
+//	u8g_FirstPage(&u8g);
+//	do {
+//		temperature_screen();
+//	} while (u8g_NextPage(&u8g));
+//
+//	SHT21.GetHumidity();
+//	IAQcore.GetIAQ(CO2eq, status, resistance, Tvoc);
+//	delay(1000);
+//
+//
+//	// Handle the input pins
+//	for (channel = 0; channel < NUM_CHANNELS; ++channel)
+//	{
+//		lastValue = inputDebouncer[channel].value();
+//	    value = inputDebouncer[channel].debounce(digitalRead(inputPins[channel]), debounceTime);
+//
+//	    if (lastValue != value)
+//	    	inputChanged(channel, value);
+//	}
+
+//    draw_state++;
+//    if ( draw_state >= 5*8 )
+//      draw_state = 0;
+
+	/* refresh screen after some delay */
+//	u8g_Delay(100);
+}
+

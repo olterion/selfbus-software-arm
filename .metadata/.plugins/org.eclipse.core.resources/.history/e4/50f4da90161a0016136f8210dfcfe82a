@@ -1,0 +1,236 @@
+/*
+ *  A simple example for SPI.
+ *
+ *  This example configures SPI for output and sends a byte every second.
+ *
+ *  Copyright (c) 2014 Stefan Taferner <stefan.taferner@gmx.at>
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 3 as
+ *  published by the Free Software Foundation.
+ */
+
+#include <sblib/core.h>
+#include <sblib/ioports.h>
+#include <sblib/spi.h>
+#include <sblib/serial.h>
+#include <sblib/eib/sblib_default_objects.h>
+#include "timer32.h"
+
+#define LEDS 18
+
+#define TIMER32_0_STEP 100 //unit: ms Schrittweite der Dimmung (1..100)
+#define SENSOR_TIMER_100MS 100/(1000/TIMER32_0_STEP) //100ms/(1 Sekunde / Timerschritte)
+#define LED_DIMM_TIME 1500 //unit: ms Gesamtzeit der Dimmung
+
+/*
+ * We use SPI port 0 in this example.
+ *
+ * Pinout:
+ *
+ * PIO0_2:  SSEL0
+ * PIO0_9:  MOSI0
+ * PIO2_11: SCK0
+ */
+
+SPI spi(SPI_PORT_0);
+
+int blinkPin = PIO0_7;
+
+uint8_t rgb_buffer_ist[LEDS];
+uint8_t rgb_buffer_soll[LEDS];
+int16_t rgb_buffer_step[LEDS];
+
+uint8_t flag_sens_pos, flag_sens_neg = 0;
+uint8_t flag_dimmen = 0;
+
+volatile int differenz_median = 0;
+volatile int timer32_0_cnt = 0;
+
+Serial Serial(PIO2_7, PIO2_8);
+
+void TIMER32_0_IRQHandler(void) {
+
+	//Dimmung der RGB Leds
+
+
+
+	//Annäherungssensor auslesen und auswerten
+	if (timer32_0_cnt == SENSOR_TIMER_100MS) { //alle 100ms die Sensorabfrage durchführen
+		timer32_0_cnt = 0; //100ms Sekungen Zähler rücksetzen
+		int wert_ohne_LED = 0;
+		int wert_mit_LED = 0;
+		int differenz_temp = 0;
+
+		LPC_TMR32B0->IR = 1; /* clear interrupt flag */
+
+		digitalWrite(PIO3_2, 1); //IR LED aus
+		for (int i = 0; i < 5; i++) {
+
+			wert_ohne_LED += analogRead(AD3);
+		}
+		wert_ohne_LED /= 5;
+
+		digitalWrite(PIO3_2, 0); //IR LED ein
+		for (int i = 0; i < 5; i++) {
+			wert_mit_LED += analogRead(AD3);
+		}
+		wert_mit_LED /= 5;
+
+		differenz_temp = wert_mit_LED - wert_ohne_LED;
+
+		differenz_median = differenz_median * 9 + differenz_temp;
+
+		differenz_median /= 10;
+
+		if (differenz_median - differenz_temp > 30) {
+			differenz_median = differenz_temp;
+			serial.println("positive Flanke erkannt!");
+			flag_sens_pos = 1;
+		} else if (differenz_temp - differenz_median > 20) {
+			differenz_median = differenz_temp;
+			serial.println("negative Flanke erkannt!");
+			flag_sens_neg = 1;
+		}
+	}
+	timer32_0_cnt++;
+
+	return;
+}
+
+/*
+ * Initialize the application.
+ */
+void setup() {
+	bcu.setProgPin(PIN_PROG);
+
+	pinMode(blinkPin, OUTPUT);
+
+	pinMode(PIO0_2, OUTPUT | SPI_SSEL);
+	pinMode(PIO0_9, OUTPUT | SPI_MOSI);
+	pinMode(PIO0_6, OUTPUT | SPI_CLOCK);
+
+	spi.setClockDivider(128);
+	spi.begin();
+
+	analogBegin();
+	pinMode(PIO1_2, INPUT_ANALOG);
+
+	pinMode(PIO3_2, OUTPUT); //IR LED
+	digitalWrite(PIO3_2, 0);
+
+	// Enable the serial port with 19200 baud, no parity, 1 stop bit
+	serial.begin(19200);
+	serial.println("Analog read example");
+
+	for (int Out = 0; Out < LEDS; Out++) {
+		RGB_Buffer[Out] = 0;
+	}
+
+	// Initialise Timer32_0 to tick at rate of 1/100th of second.
+	// Default clock speed set up by CMSIS SystemInit function
+	// (SystemCoreClock) - is 48MHz or 48000000 Hz. Dividing this
+	// by 100 is 480000.
+	// Note by default LPC_SYSCON->SYSAHBCLKDIV is 1.
+	init_timer32(0, ((SystemCoreClock / LPC_SYSCON->SYSAHBCLKDIV) / (1000 / TIMER32_0_STEP)));
+
+	/* Turn timer on */
+	enable_timer32(0);
+
+	for(uint8_t i=0; i<LEDS; i++){
+		rgb_buffer_soll[i] = 0xFF;
+	}
+}
+
+void spi_send(uint8_t *value) {
+	for (int Out = 0; Out < LEDS; Out++) {
+		spi.transfer(value[Out]);
+	}
+	delayMicroseconds(600);
+}
+
+/*
+ * The main processing loop.
+ */
+void loop() {
+
+	static int differenz_alt = 0;
+	static int ch_cnt = 0;
+
+	//for (int Out = 0; Out < LEDS; Out++)
+	//{
+	RGB_Buffer[ch_cnt] = 0xFF;// PWM 100%
+	if (ch_cnt == 0) {
+		RGB_Buffer[LEDS - 1] = 0x00;
+	} else {
+		RGB_Buffer[ch_cnt - 1] = 0x00;
+	}
+	spi_send(RGB_Buffer);
+	ch_cnt++;
+	if (ch_cnt == LEDS) {
+		ch_cnt = 0;
+	}
+
+	if(flag_sens_pos){
+		for(uint8_t i=0; i<LEDS; i++){
+			rgb_buffer_step[i] = (rgb_buffer_soll[i] - rgb_buffer_ist[i])/(LED_DIMM_TIME/TIMER32_0_STEP);
+		}
+		flag_sens_pos = 0;
+		flag_dimmen = 1;
+	}
+
+
+	//delay(500);
+	//}
+
+	// Test PWM
+	/*for (int Out = 0; Out < LEDS; Out++)
+	 {
+	 // Rpzjaśniamy
+	 for (int i = 0; i < 256; i++)
+	 {
+	 RGB_Buffer[Out] = i;
+	 spi_send(RGB_Buffer);
+	 }
+
+	 // ... i gasimy
+	 for (int i = 0; i < 256; i++)
+	 {
+	 RGB_Buffer[Out] = (uint8_t)0xFF & 255-i;
+	 spi_send(RGB_Buffer);
+	 }
+	 }*/
+
+//    digitalWrite(PIO3_2, 1); //IR LED aus
+//    delay(50);
+//    for(int i=0; i<5; i++){
+//     	wert_ohne_LED += analogRead(AD3);
+//    }
+//    wert_ohne_LED /= 5;
+//    serial.print("ohne LED: ");
+//    serial.println(wert_ohne_LED);
+//    digitalWrite(PIO3_2, 0); //IR LED ein
+//    delay(50);
+//    for(int i=0; i<5; i++){
+//     	wert_mit_LED += analogRead(AD3);
+//    }
+//    wert_mit_LED /= 5;
+//    serial.print("mit LED: ");
+//    serial.println(wert_mit_LED);
+//    differenz_array[] = wert_mit_LED - wert_ohne_LED;
+//    if(abs(differenz-differenz_alt) > 30 ){
+//    	serial.println("Flanke erkannt!");
+//    }
+//    serial.print("Differenz: ");
+//    serial.println(differenz);
+//    serial.print("\r\n");
+	delay(200);
+
+	//digitalWrite(blinkPin, true);
+
+	//delay(10);
+
+	//digitalWrite(blinkPin, false);
+	//delay(10);
+}
+

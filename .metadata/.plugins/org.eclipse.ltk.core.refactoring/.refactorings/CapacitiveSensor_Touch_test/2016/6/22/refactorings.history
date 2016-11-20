@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;CapacitiveSensor_Touch_test/src/main.cpp&apos; to &apos;app_main.cpp&apos;" description="Rename resource &apos;main.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main.cpp" name="app_main.cpp" stamp="1464814472390" updateReferences="true"/>
+</session>
